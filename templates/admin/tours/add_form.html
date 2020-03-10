@@ -1,0 +1,21 @@
+<script>
+console.log("xin chao casc babn");
+var resort_to_country = [
+    {% for i in resort_to_country %}
+        ['{{ i.country }}', {{ i.pk }}, '{{ i.name }}'],
+    {% endfor %}
+];
+
+var resorts_select_field = django.jQuery('#id_resort');
+var countries_select_field = django.jQuery('#id_country');
+
+countries_select_field.on('change', function () {
+    resorts_select_field.empty();
+    resort_to_country.forEach(function (item) {
+        if (item[0] === countries_select_field.find(':selected').text()) {
+            resorts_select_field.append(django.jQuery('<option></option>').attr('value', item[1]).text(item[2]));
+        }
+    });
+});
+
+</script>
